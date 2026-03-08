@@ -1,13 +1,9 @@
-<div align="left">
-
 # rented.
 *Renting in Toronto shouldn't be this hard.*
 
 <br />
 
 [![watch the demo](https://img.youtube.com/vi/ej8GaHgOnrA/maxresdefault.jpg)](https://www.youtube.com/watch?v=ej8GaHgOnrA)
-
-</div>
 
 ---
 
