@@ -1,7 +1,5 @@
 <div align="left">
 
-<br />
-
 # rented.
 *Renting in Toronto shouldn't be this hard.*
 
