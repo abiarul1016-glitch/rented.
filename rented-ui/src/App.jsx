@@ -456,6 +456,35 @@ const MSGS = [
   "Preparing results",
 ];
 
+// ─── CHIME ─────────────────────────────────────────────────────────
+
+function playChime() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+  const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 — a clean major chord arpeggio
+
+  notes.forEach((freq, i) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+    const start = ctx.currentTime + i * 0.12;
+    const end = start + 0.6;
+
+    gain.gain.setValueAtTime(0, start);
+    gain.gain.linearRampToValueAtTime(0.18, start + 0.02);  // soft attack
+    gain.gain.exponentialRampToValueAtTime(0.001, end);      // gentle fade
+
+    osc.start(start);
+    osc.stop(end);
+  });
+}
+
 // ─── MAIN APP ──────────────────────────────────────────────────────────────────
 export default function App() {
   const [step, setStep] = useState("home");
@@ -503,6 +532,7 @@ export default function App() {
     // Wait for BOTH the animation AND the data before showing results
     const [, data] = await Promise.all([animationDone, dataReady]);
     setResults(data);
+    playChime();
     setStep("results");
   };
 
