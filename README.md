@@ -1,4 +1,4 @@
-<div align="center">
+<div align="left">
 
 <br />
 
@@ -12,9 +12,6 @@
 ![React](https://img.shields.io/badge/React-19-7c3aed?style=flat-square&logo=react&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-7c3aed?style=flat-square&logo=flask&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-7c3aed?style=flat-square&logo=vite&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-c084fc?style=flat-square)
-
-<br />
 
 </div>
 
