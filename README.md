@@ -2,22 +2,26 @@
 
 <br />
 
-<h1>rented.</h1>
-
-<p><em>Renting in Toronto shouldn't be this hard.</em></p>
+# rented.
+*Renting in Toronto shouldn't be this hard.*
 
 <br />
 
-![Python](https://img.shields.io/badge/Python-3.8+-7c3aed?style=flat-square&logo=python&logoColor=white)
-![React](https://img.shields.io/badge/React-19-7c3aed?style=flat-square&logo=react&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-7c3aed?style=flat-square&logo=flask&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-7c3aed?style=flat-square&logo=vite&logoColor=white)
+[![watch the demo](https://img.youtube.com/vi/ej8GaHgOnrA/maxresdefault.jpg)](https://www.youtube.com/watch?v=ej8GaHgOnrA)
 
 </div>
 
 ---
 
-## The story
+![Python](https://img.shields.io/badge/Python-3.8+-7c3aed?style=for-the-badge&logo=python&logoColor=white)
+![React](https://img.shields.io/badge/React-19-7c3aed?style=for-the-badge&logo=react&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-7c3aed?style=for-the-badge&logo=flask&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7c3aed?style=for-the-badge&logo=vite&logoColor=white)
+![BeautifulSoup](https://img.shields.io/badge/BeautifulSoup4-7c3aed?style=for-the-badge&logo=python&logoColor=white)
+
+---
+
+## The story behind this
 
 I'm the son of a landlord.
 
@@ -27,8 +31,7 @@ And from where I sit, the rental market is genuinely broken — not just for ten
 
 Renters are scrolling through pages of overpriced listings, duplicate ads from the same landlord, promoted posts they didn't ask for, and buried in half of them — illegal clauses. Things like *"no pets"*, *"students only"*, *"no subletting"* — restrictions that are straight-up violations of the Ontario Residential Tenancies Act. Most people never catch them.
 
-
-But this isn’t a tale about them, rather about the potential tenants, and the next generation—my generation who may not have a home in the country they call their home. So...
+But this isn't a tale about them. It's about the potential tenants — the next generation, my generation — who may not have a home in the country they call home.
 
 Meet **rented.**
 
@@ -36,7 +39,7 @@ Meet **rented.**
 
 ## What it does
 
-You enter what you're looking for — city, price range, bedrooms, bathrooms. rented. scrapes Kijiji live, scores every result against your filters, flags anything with illegal clauses, and returns a clean carousel of your top 10 matches.
+Enter what you're looking for — city, price range, bedrooms, bathrooms. rented. scrapes Kijiji live, scores every result against your filters, flags anything with illegal clauses, and returns a clean carousel of your top 10 matches.
 
 No ads. No promoted listings. No noise.
 
@@ -44,17 +47,24 @@ Just the places that actually fit.
 
 ---
 
+## Features
+
+- **Live Kijiji scraping** — hits 3 pages of GTA listings in real time
+- **RTA violation detection** — scans descriptions for illegal clauses across 7 categories
+- **Smart scoring** — ranks listings by how well they match your filters
+- **Animated loader** — a hand-crafted SVG house builds itself while you wait
+- **Centred carousel** — your top match front and centre, neighbours fading on both sides
+- **Ad-free, always** — no promoted posts, no noise
+
+---
+
 ## How it works
 
 ### 1. Scraping
 
-`kijiji_V2.py` hits the first 3 pages of Kijiji's GTA apartments & condos section. For each listing card on the page, it pulls:
+`kijiji_V2.py` hits the first 3 pages of Kijiji's GTA apartments & condos section. For each listing card it pulls title, price, location, description, the lead photo, and structured attributes — bedrooms, bathrooms, unit type, parking, and square footage — directly from Kijiji's own attribute list.
 
-- Title, price, location, description, and posting date
-- The listing URL and lead photo
-- Structured attributes from Kijiji's own attribute list — bedrooms, bathrooms, unit type, parking, and square footage
-
-Price is cleaned from a raw string like `$1,750/mo` down to a plain number. Anything that isn't a dollar amount (e.g. *"Please Contact"*) becomes `0` and gets filtered out later.
+Price is cleaned from a raw string like `$1,750/mo` down to a plain number. Anything that isn't a dollar amount (e.g. *"Please Contact"*) becomes `0` and gets filtered out downstream.
 
 ### 2. RTA violation detection
 
@@ -70,13 +80,13 @@ This is the part I care about most. Before a listing ever reaches you, its descr
 | Subletting | `no subletting`, `no sublease` |
 | Family status | `no couples`, `no families`, `single person only` |
 
-Every pattern that matches gets added to the listing's `illegal_flags` list. Flagged listings aren't removed — they show up in results with a visible warning badge so you can decide for yourself. Transparency over gatekeeping.
+Every pattern that matches gets added to the listing's `illegal_flags` list. Flagged listings aren't removed — they show up with a visible warning badge so you can make an informed decision. Transparency over gatekeeping.
 
-> The current limitation is that the scraper only checks the short preview description on the listing card, not the full listing page. A deeper per-listing scrape would catch far more. That's next.
+> **Current limitation:** the scraper only checks the short preview description on the listing card, not the full listing page. A deeper per-listing scrape would catch far more. That's next.
 
 ### 3. Scoring
 
-Once listings are filtered by your location and price range, each one is scored:
+Once listings are filtered by location and price range, each one is scored:
 
 - Exact bedroom match → **+20 pts**
 - Bathroom match or better → **+20 pts**
@@ -88,7 +98,7 @@ Top 10 by score are returned. The rest are dropped.
 
 ### 4. The UI
 
-Results come back through a Flask REST API and land in a React carousel. Your top match sits front and centre at full size. Cards on either side scale down and blur slightly, giving a sense of depth. Clicking any side card brings it forward. A dot nav and arrow buttons let you move through the full list. While all of this is loading, a small SVG house animates itself being built — walls, roof, chimney, smoke and all.
+Results come back through a Flask REST API and land in a React carousel. Your top match sits front and centre at full size. Cards on either side scale down and blur slightly, giving depth. Clicking any side card brings it forward. A dot nav and arrow buttons let you move through the full list. While results load, a small SVG house animates itself being built — walls, roof, chimney, smoke and all.
 
 ---
 
@@ -161,18 +171,18 @@ Returns an array of up to 10 listings sorted by score. Each listing includes tit
 
 ---
 
-## What's still broken / what's next?
+## What's still broken / what's next
 
-- `date_posted` always returns `null` — the scraper isn't catching it yet
-- RTA violation detection only checks the short preview text, not the full listing page — a deeper per-listing scrape would make this much more accurate
-- Only Kijiji for now — Facebook Marketplace and Realtor.ca are next
-- Scoring weights are hardcoded — ideally these would be user-adjustable
-- No saved searches, no accounts, no history yet
+- [ ] `date_posted` always returns `null` — the scraper isn't catching it yet
+- [ ] RTA detection only checks the short preview text — a per-listing deep scrape would be far more accurate
+- [ ] Only Kijiji for now — Facebook Marketplace and Realtor.ca are next
+- [ ] Scoring weights are hardcoded — ideally user-adjustable
+- [ ] No saved searches, accounts, or history yet
 
 ---
 
 <div align="center">
 
-*Built at Hack Canada  ·  Made with 🍁 and a lot of spite*
+Built at Hack Canada &nbsp;·&nbsp; Made with 🍁 and an unreasonable amount of `BeautifulSoup(requests.get(kijiji))`
 
 </div>
