@@ -3,5 +3,8 @@
 # Demos Directory
 demos/
 
+# My venv to keep Python installation clean
+.venv/
+
 # Video files to save space
 *.mp4
