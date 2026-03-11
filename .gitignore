@@ -1,0 +1,7 @@
+# Exclude all the following
+
+# Demos Directory
+demos/
+
+# Video files to save space
+*.mp4
