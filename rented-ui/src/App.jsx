@@ -518,7 +518,7 @@ export default function App() {
     setTimeout(tick, 1100);
   });
 
-    const dataReady = fetch("http://127.0.0.1:5000/search", {
+    const dataReady = fetch("https://rented-9682.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(filters),
